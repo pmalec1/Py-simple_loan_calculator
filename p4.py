@@ -31,3 +31,26 @@ def calculate_capital_installment(total_credit_amount, amount_of_months):
 def calculate_total_installment(interest_intallment, capital_installment):
     total_installment = interest_intallment+capital_installment
     return round(total_installment, 2)
+
+
+def mortage_calculator(credit_informations):
+
+    p = credit_informations['Credit amount'] * (1 + credit_informations['Banks fee'] / 100)
+    x = credit_informations['Interest rate'] / 100
+    n = credit_informations['Payment period'] * 12
+
+    capital_installment = calculate_capital_installment(p, n)
+    list_of_installments = [[] for n in range(n)]
+    total_cost = 0
+
+    for m in range(n):
+        number_of_payment = m+1
+        interest_installment = calculate_interest_intallment(p, m, capital_installment, x)
+        total_installment = calculate_total_installment(interest_installment, capital_installment)
+        total_cost = round(total_cost + total_installment, 2)
+        list_of_installments[m].append(number_of_payment)
+        list_of_installments[m].append(capital_installment)
+        list_of_installments[m].append(interest_installment)
+        list_of_installments[m].append(total_installment)
+        list_of_installments[m].append(total_cost)
+    return list_of_installments
