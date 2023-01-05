@@ -54,3 +54,22 @@ def mortage_calculator(credit_informations):
         list_of_installments[m].append(total_installment)
         list_of_installments[m].append(total_cost)
     return list_of_installments
+
+
+def make_table_of_installments_informations(list_of_installments):
+    table = Table(title="Statistics of mortage credit payments")
+    table.add_column("Number of payment", justify="right")
+    table.add_column("Capital Installment", justify="right")
+    table.add_column("Interest Installment", justify="right",)
+    table.add_column("Total Installment", justify="right",)
+    table.add_column("Total cost of credit", justify="right",)
+    for m in range(len(list_of_installments)):
+        table.add_row(str(m + 1), str(list_of_installments[m][1]), str(list_of_installments[m][2]),
+                      str(list_of_installments[m][3]), str(list_of_installments[m][4]))
+    console = Console()
+    console.print(table)
+
+
+credit_data = get_inputs_from_user()
+list_of_installments = mortage_calculator(credit_data)
+make_table_of_installments_informations(list_of_installments)
